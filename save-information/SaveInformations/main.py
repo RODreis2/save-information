@@ -13,65 +13,106 @@ print("=" * 83)
 while True:
 
     #Fist part: where you will save your things, clean or Help(only if you don't know what the program does).
-    options = input("Chose option \n"
-                  "[L]ist [D]ictionary [C]lean [H]elp : ")
+    FistChosen = input("Chose option \n"
+                  "[L]ist [D]ictionary [H]elp : ")
 
-    #LIST PART
-    if options.upper() == "L":
-        chose1 = input("Chose option \n"
-                    "[I]nsert [D]elet [L]ist [E]xit: ")
 
-        if chose1.upper() == 'I':
+    #____LIST PART____
+    os.system('clear')
+    if FistChosen.upper() == "L":
+        ListChosen = input("Chose option \n"
+                    "[I]nsert [L]ist [D]elete [C]lean [E]xit: ")
+
+
+        #List: insert logic 
+        os.system('clear')
+        if ListChosen.upper() == 'I':
             shopping = input("write value: ")
+            os.system('clear')
             list_one.append(shopping)
 
-        elif chose1 == 'D' or chose1 == 'd':
-
-            Chose1_5 = int(input("Write number you want to delete: "))
+        #List: delete logic
+        elif ListChosen.upper() == 'D':
+            os.system('clear')
+            ChoseToDelete = int(input("Write number of information that you want to delete: "))
             try:
-                list_one.pop(Chose1_5)
+                list_one.pop(ChoseToDelete)
             except:
+                os.system('clear')
                 print(f"The number do not be in the list, write again please.")
                 continue
-
-        elif chose1 == 'L' or chose1 == 'l':
+        
+        #List: list logic
+        elif ListChosen.upper() == 'L':
+            os.system('clear')
             for value, index in enumerate(list_one):
                 print(f"{value} {index}")
 
-        elif chose1 == "e" or chose1 == "E":
-            print("thank you for use we app byeee :)")
+        #List: Exit logic
+        elif ListChosen.upper() == "E":
+            os.system('clear')
+            print("thank you for use we aplication byeee ")
             sys.exit()
 
-    #DICTIONARY PART
-    elif options == "D" or options == "d":
-        chose2 = input("Chose option \n"
-                      "[I]nsert [D]elet [S]how [E]xit: ")
+        #List: Clean logic
+        elif ListChosen.upper() == 'C':
+            os.system('clear')
+            list_one.clear()
+            print("List has been cleaned.")
+        
+        else:
+            print("Write again please.")
+            continue
 
-        if chose2 == "I" or chose2 == "i":
+
+    #____DICTIONARY PART____
+    elif FistChosen.upper() == "D":
+        DictChosen = input("Chose option \n"
+                      "[I]nsert [S]how [D]elete [C]lean [E]xit: ")
+
+        #Dict: insert logic
+        if DictChosen.upper() == "I":
+            os.system('clear')
             name_dict2 = input("Write name: ")
             description = input("Write description: ")
             dict_one.update({name_dict2: description})
 
-        elif chose2 == "D" or chose2 == "d":
-            for value2, index2 in dict_one.items():
-                print(f"{value2} {index2}")
-            Chose2_5 = input("Write name you want to delete: ")
+        #Dict: Delete logic
+        elif DictChosen.upper() == "D":
+            os.system('clear')
+            for value1, index2 in dict_one.items():
+                print(f"{value1} {index2}")
+            DictItemDelete = input("Write name you want to delete: ")
             try:
-                del dict_one[Chose2_5]
+                del dict_one[DictItemDelete]
             except:
+                os.system('clear')
                 print(f"The name do not be in the dictionary, write again please.")
                 continue
 
-        elif chose2 == "S" or chose2 == "s":
-            for value3, index3 in enumerate(dict_one):
-                print(f"{value3} {index3}")
+        #Dict: Show logic
+        elif DictChosen.upper() == "S":
+            for value3, index4 in enumerate(dict_one):
+                print(f"{value3}: {index4}")
 
-        elif chose2 == "e" or chose2 == "E":
+        #Dict: Clean logic
+        elif DictChosen.upper() == "C":
+            os.system('clear')
+            sure = str(input("Are you sure? [Y]es [N]o "))
+            if sure.upper() == "Y": 
+                os.system('clear')
+                dict_one.cear()
+                print("Dict has been cleaned.")            
+
+        #Dict: Exit logic
+        elif DictChosen.upper() == "E":
+            os.system('clear')
             print("thank you for use we app byeee :)")
             sys.exit()
 
-    #HELP PART
-    elif options == "H" or options == "h":
+
+    #____HELP PART____
+    elif FistChosen.upper() == "H":
         print("LIST: a list is like a container that holds a bunch of items. \n"
               "These items can be numbers, text, or even other lists. \n"
               "Lists keep things in a particular order, so you can find them later by their position in the list. \n"
@@ -81,11 +122,3 @@ while True:
               "where each compartment (value) is associated with a unique label (key).\n"
               "These labels can be strings, numbers, or even tuples, while the values can be any data type,\n"
               "including numbers, strings, lists, or even other dictionaries.")
-
-
-    #CLEAN PART
-    elif options == "c" or options == "C":
-        print("we can't use this function now, sorry :")
-    else:
-        print("Please select just correct options")
-        continue
