@@ -1,4 +1,5 @@
 import os
+import sys
 dict_one = {}
 
 def DictFunction():
@@ -27,7 +28,8 @@ def DictFunction():
 
         #Dict: Show logic
     elif DictChosen.upper() == "S":
-        for value3, index4 in enumerate(dict_one):
+        os.system('clear')
+        for value3, index4 in dict_onel.items():
                 print(f"{value3}: {index4}")
 
         #Dict: Clean logic
@@ -36,7 +38,7 @@ def DictFunction():
         sure = str(input("Are you sure? [Y]es [N]o "))
         if sure.upper() == "Y": 
             os.system('clear')
-            dict_one.cear()
+            dict_one.clear()
             print("Dict has been cleaned.")            
 
         #Dict: Exit logic
