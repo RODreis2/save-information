@@ -4,6 +4,12 @@ import os
 #____HELP PART____
 def Documentation():
       os.system('clear')
+      print("=" * 83)
+      print("------------------------------------ Hello Guys -----------------------------------")
+      print("we application is a list and a dictionary to which you will add values in the sames")
+      print("=" * 83)
+      print("")
+      print("")
       print("LIST: a list is like a container that holds a bunch of items. \n"
               "These items can be numbers, text, or even other lists. \n"
               "Lists keep things in a particular order, so you can find them later by their position in the list. \n"
