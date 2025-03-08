@@ -5,8 +5,6 @@ import sys
 import os
 
 
-#List and dict that will store
-
 def init():
     if FistChosen.upper() == "L":
         return Listfunction()

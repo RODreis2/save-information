@@ -39,6 +39,7 @@ def ListFunctionDelete():
             try:
                 list_one.pop(ChoseToDelete)
             except:
+   
                 os.system('clear')
                 print(f"The number do not be in the list, write again please.")
                 quit()        
@@ -60,7 +61,7 @@ def ListfunctionExit():
 
 def ListfunctionClear():
             os.system('clear')
-            ///////////////////////////////list_one.clear()
+            list_one.clear()
             print("List has been cleaned.")
         
             
