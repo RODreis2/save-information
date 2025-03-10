@@ -35,7 +35,7 @@ def ListFunctionDelete():
                 for index, item in enumerate(list_one):
                     print(f"{index}: {item},")
 
-            ChoseToDelete = int(input("Write number of information that you want to delete: "))
+            ChoseToDelete = int(input("Write number of information that you want to delete: ").strip())
             try:
                 list_one.pop(ChoseToDelete)
             except:
