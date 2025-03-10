@@ -1,6 +1,9 @@
 from Documentation import Documentation
 from ListLogic import Listfunction
 from DictLogic import DictFunction
+from SavePdf import save_to_pdf
+from ExitLogic import exitClear1
+from ExitLogic import fullExit
 import sys
 import os
 
@@ -13,9 +16,8 @@ def init():
     elif FistChosen.upper() == "H":
         return Documentation()
     elif FistChosen.upper() == "E":
-        os.system('clear')
-        print("thank you for use we aplication byeee ")
-        sys.exit()
+        return fullExit()
+        
 
 
 print("=" * 83)
