@@ -1,22 +1,21 @@
 from Documentation import Documentation
-from ListLogic import Listfunction
-from DictLogic import DictFunction
 from SavePdf import save_to_pdf
-from ExitLogic import exitClear1
-from ExitLogic import fullExit
+import Logics.DictLogic
+import Logics.ListLogic 
+import Logics.ExitLogic
 import sys
 import os
 
 
 def init():
     if FistChosen.upper() == "L":
-        return Listfunction()
+        return Logics.ListLogic.Listfunction()
     elif FistChosen.upper() == "D":
-        return DictFunction()
+        return Logics.DictLogic.DictFunction()
     elif FistChosen.upper() == "H":
-        return Documentation()
+        return Logics.DictLogic.Documentation()
     elif FistChosen.upper() == "E":
-        return fullExit()
+        return Logics.fullExit()
         
 
 

@@ -15,45 +15,42 @@ def DictFunction():
         return DictFunctionDelete()
     elif DictChosen.upper() == "E":
         return DictFunctionExit()
-     
 
     #Dict: insert logic
 def DictFunctionInsert():
-        os.system('clear')
+        os.system('clear' if os.name == 'posix' else 'cls')
         name_dict2 = input("Write name: ")
         description = input("Write description: ")
         dict_one.update({name_dict2: description})
 
     #Dict: Delete logic
 def DictFunctionDelete():
-        os.system('clear')
+        os.system('clear' if os.name == 'posix' else 'cls')
         for value1, index2 in dict_one.items():
                 print(f"{value1} {index2}")
         DictItemDelete = input("Write name you want to delete: ")
         try:
             del dict_one[DictItemDelete]
         except:
-            os.system('clear')
+            os.system('clear' if os.name == 'posix' else 'cls')
             print(f"The name do not be in the dictionary, write again please.")
             
-
     #Dict: Show logic
 def DictFunctionShow():
-        os.system('clear')
+        os.system('clear' if os.name == 'posix' else 'cls')
         for value3, index4 in dict_one.items():
                 print(f"{value3}: {index4}")
 
     #Dict: Clean logic
 def DictFunctiontClean():
-        os.system('clear')
+        os.system('clear' if os.name == 'posix' else 'cls')
         sure = str(input("Are you sure? [Y]es [N]o "))
         if sure.upper() == "Y": 
-            os.system('clear')
+            os.system('clear' if os.name == 'posix' else 'cls')
             dict_one.clear()
             print("Dict has been cleaned.")            
 
     #Dict: Exit logic
 def DictFunctionExit():
-        os.system('clear')
-        print("thank you for use we app byeee :)")
-        sys.exit()
+        from Logics.ExitLogic import fullExit
+        fullExit()

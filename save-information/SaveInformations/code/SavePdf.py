@@ -30,6 +30,3 @@ def save_to_pdf(filename, ListToPdf, DictToPdf):
         filename = hidden_filename
 
     print(f"File saved as hidden: {filename}")
-
-
-save_to_pdf("meu_arquivo.pdf", ["Item 1", "Item 2"], {"chave1": "valor1", "chave2": "valor2"})

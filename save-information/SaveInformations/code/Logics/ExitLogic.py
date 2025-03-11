@@ -1,9 +1,6 @@
-from ListLogic import list_one
-from DictLogic import dict_one
 from SavePdf import save_to_pdf
 import os
 import sys
-
 
 def exitClear1():
     os.system('clear' if os.name == 'posix' else 'cls')
@@ -14,8 +11,10 @@ def exitClear1():
 def fullExit():
     while True:
         SaveOrNot = input("Do you wanna save your information [S/N]? ").strip().upper()
-        
-        if SaveOrNot == "S":
+        os.system('clear' if os.name == 'posix' else 'cls')
+        if SaveOrNot == "S":    
+            from Logics.ListLogic import list_one
+            from Logics.DictLogic import dict_one
             namefile = input("Write the name: ").strip()
             try:
                 save_to_pdf(namefile, list_one, dict_one)  

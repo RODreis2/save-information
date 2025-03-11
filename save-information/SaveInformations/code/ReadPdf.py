@@ -2,7 +2,6 @@ import pdfplumber
 import os
 
 def load_from_pdf(filename):
-    """Lê um PDF e extrai uma lista e um dicionário de volta para o programa."""
     lista = []
     dicionario = {}
 
@@ -36,4 +35,3 @@ def load_from_pdf(filename):
     return lista, dicionario
     
 
-load_from_pdf("pdf")
