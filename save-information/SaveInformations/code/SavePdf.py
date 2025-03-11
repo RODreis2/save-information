@@ -19,9 +19,17 @@ def save_to_pdf(filename, ListToPdf, DictToPdf):
         y -= 20
 
     c.save()
-    print(f"File save by name: {filename}")
+    
+    #Save a invisible file
+    if os.name == "nt":  
+        os.system(f"attrib +h {filename}")
+
+    elif os.name == "posix":  
+        hidden_filename = f".{filename}"  
+        os.rename(filename, hidden_filename)
+        filename = hidden_filename
+
+    print(f"File saved as hidden: {filename}")
 
 
-liust = [1, 2, 3]
-liust2 = {1:"isso"}
-save_to_pdf("pdf.pdf", liust,liust2)
+save_to_pdf("meu_arquivo.pdf", ["Item 1", "Item 2"], {"chave1": "valor1", "chave2": "valor2"})
