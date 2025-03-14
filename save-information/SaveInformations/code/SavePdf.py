@@ -22,10 +22,10 @@ def save_to_pdf(filename, ListToPdf, DictToPdf):
     
     #Save a invisible file
     if os.name == "nt":  
-        os.system(f"attrib +h {filename}")
+        os.system(f"attrib +h {filename}.pdf")
 
     elif os.name == "posix":  
-        hidden_filename = f".{filename}"  
+        hidden_filename = f".{filename}.pdf"  
         os.rename(filename, hidden_filename)
         filename = hidden_filename
 

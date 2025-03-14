@@ -1,36 +1,56 @@
+import curses
 from Documentation import Documentation
-from SavePdf import save_to_pdf
+#import SavePdf  # Se necessário
 import Logics.DictLogic
-import Logics.ListLogic 
-import Logics.ExitLogic
+import Logics.ListLogic
+#import Logics.ExitLogic
 import sys
 import os
 
-
-def init():
+def init(FistChosen, stdscr):
+    """Chama a função correspondente à opção escolhida"""
     if FistChosen.upper() == "L":
-        return Logics.ListLogic.Listfunction()
+        Logics.ListLogic.Listfunction(stdscr)
     elif FistChosen.upper() == "D":
-        return Logics.DictLogic.DictFunction()
+        Logics.DictLogic.DictFunction(stdscr)
     elif FistChosen.upper() == "H":
-        return Logics.DictLogic.Documentation()
+        Logics.DictLogic.Documentation(stdscr)
     elif FistChosen.upper() == "E":
-        return Logics.fullExit()
-        
+        Logics.fullExit()
+    elif FistChosen.upper() == "I":
+        # Implementar lógica de "I" se necessário
+        pass
 
+def center_text(stdscr, text, row):
+    """Centraliza o texto na tela"""
+    col = (curses.COLS - len(text)) // 2
+    stdscr.addstr(row, col, text)
 
-print("=" * 83)
-print("we application is a list and a dictionary to which you will add values in the sames")
-print("=" * 83)
+def main(stdscr):
+    """Função principal que executa o menu e gerencia a entrada do usuário"""
+    # Inicializa o Ncurses
+    curses.curs_set(1)  # Oculta o cursor
+    stdscr.clear()  # Limpa a tela
+    stdscr.refresh()
 
-#start of the program
-while True:
+        # Exibindo a introdução do programa
+    center_text(stdscr, "=" * 83, 0)
+    center_text(stdscr, "We application is a list and a dictionary to which you will add values in the same", 1)
+    center_text(stdscr, "=" * 83, 2)
+    stdscr.refresh()
 
-    #Fist part: where you will save your things, clean or Help(only if you don't know what the program does).
-    FistChosen = input("Chose option \n"
-                  "[L]ist [D]ictionary [H]elp [E]xit: ")
+        # Exibindo as opções de escolha, centralizado
+    option_text = "[L]ist [D]ictionary [H]elp [I]mage [E]xit: "
+    center_text(stdscr, option_text, 4)
+    stdscr.refresh()
+    FistChosen = stdscr.getch()
 
-
-    #Start
-    init()
+    init(chr(FistChosen).upper(), stdscr)
+        # Chama a função init com a escolha do usuário
     
+
+        # Limpa a tela antes de reexibir as opções
+    stdscr.clear()
+
+if __name__ == "__main__":
+    curses.wrapper(main)

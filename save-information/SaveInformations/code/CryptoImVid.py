@@ -21,4 +21,3 @@ def encrypt_file(file_path, output_path, key):
     with open(output_path, 'wb') as f:
         f.write(iv + encrypted_data)  # Salvar o IV no início do arquivo criptografado
 
-
