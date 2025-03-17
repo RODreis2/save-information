@@ -20,56 +20,19 @@ def DictFunction(stdscr):
     elif chr(choice).upper() == "E":
         DictFunctionExit()
 
-import curses
 
 def DictFunctionInsert(stdscr):
-    stdscr.clear()
-    
-    # Exibe a instrução de digitação para o nome
-    stdscr.addstr(0, 0, "Write name: ")
-    stdscr.refresh()
-    name_dict2 = ""
-    
-    # Captura a entrada de texto enquanto o usuário digita
-    while True:
-        stdscr.addstr(1, 0, "You are typing: " + name_dict2)  # Exibe o que o usuário está digitando
-        stdscr.refresh()
-        key = stdscr.getch()  # Captura a tecla pressionada
-        
-        # Se pressionar ENTER (código 10), sai do loop
-        if key == 10:
-            break
-        elif key == 27:  # Se pressionar ESC (código 27), sai do loop
-            return
-        elif key == 263:  # Se pressionar BACKSPACE (código 263), remove o último caractere
-            name_dict2 = name_dict2[:-1]
-        else:
-            name_dict2 += chr(key)  # Adiciona o caractere digitado à string
+    from Display import get_input
+    """Função para inserir dados no dicionário usando a função get_input."""
+    name_dict2 = get_input(stdscr, "Write name: ")  # Chama a função para capturar o nome
+    if name_dict2 is None:
+        return  # Se o usuário pressionar ESC, sai da função
 
-    # Agora, pede pela descrição
-    stdscr.clear()
-    stdscr.addstr(0, 0, "Write description: ")
-    stdscr.refresh()
-    description = ""
+    description = get_input(stdscr, "Write description: ")  # Chama a função para capturar a descrição
+    if description is None:
+        return  # Se o usuário pressionar ESC, sai da função
     
-    # Captura a entrada da descrição enquanto o usuário digita
-    while True:
-        stdscr.addstr(1, 0, "You are typing: " + description)  # Exibe o que o usuário está digitando
-        stdscr.refresh()
-        key = stdscr.getch()  # Captura a tecla pressionada
-        
-        # Se pressionar ENTER (código 10), sai do loop
-        if key == 10:
-            break
-        elif key == 27:  # Se pressionar ESC (código 27), sai do loop
-            return
-        elif key == 263:  # Se pressionar BACKSPACE (código 263), remove o último caractere
-            description = description[:-1]
-        else:
-            description += chr(key)  # Adiciona o caractere digitado à string
-
-    # Atualiza o dicionário com o nome e a descrição fornecidos
-    dict_one.update({name_dict2: description})
+    dict_one.update({name_dict2: description})  # Atualiza o dicionário com os dados inseridos
 
     # Exibe uma confirmação
     stdscr.clear()
@@ -79,18 +42,21 @@ def DictFunctionInsert(stdscr):
 
 
 def DictFunctionDelete(stdscr):
+    from Display import get_input
     stdscr.clear()
     for i, (key, value) in enumerate(dict_one.items()):
         stdscr.addstr(i, 0, f"{key}: {value}")
-    stdscr.addstr(len(dict_one), 0, "Write name you want to delete: ")
-    stdscr.refresh()
+        
+    DelName = get_input(stdscr, "Write the name you want to delete: ", len(dict_one) + 1, 0)
     
-    DictItemDelete = stdscr.getstr().decode("utf-8")
-    if DictItemDelete in dict_one:
-        del dict_one[DictItemDelete]
+    if DelName in dict_one:
+        del dict_one[DelName]
+        stdscr.addstr(len(dict_one) + 2, 0, f"'{DelName}' deleted successfully!")
     else:
-        stdscr.addstr(len(dict_one) + 1, 0, "The name is not in the dictionary, press any key to continue...")
-        stdscr.getch()
+        stdscr.addstr(len(dict_one) + 2, 0, "The name is not in the dictionary. Press any key to continue...")
+
+    stdscr.refresh()
+    stdscr.getch()
 
 def DictFunctionShow(stdscr):
     stdscr.clear()

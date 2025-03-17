@@ -1,32 +1,41 @@
+import curses
 from reportlab.pdfgen import canvas
 import os
 
-def save_to_pdf(filename, ListToPdf, DictToPdf):
-    """Cria um PDF e salva uma lista e um dicionário nele."""
+def save_to_pdf(stdscr, filename, ListToPdf, DictToPdf):
+    stdscr.clear()
+    stdscr.addstr(0, 0, "Creating PDF...")
+    stdscr.refresh()
+    
     c = canvas.Canvas(filename)
-
-    # Salvando a lista no PDF
+    
+    # Saving list to PDF
     c.drawString(100, 750, "List:")
-    y = 730  # Posição Y inicial para escrever os itens da lista
+    y = 730
     for item in ListToPdf:
         c.drawString(120, y, f"- {item}")
         y -= 20
-
-    c.drawString(100, y-20, "Dict:")
+    
+    c.drawString(100, y - 20, "Dict:")
     y -= 40
-    for chave, valor in DictToPdf.items():
-        c.drawString(120, y, f"{chave}: {valor}")
+    for key, value in DictToPdf.items():
+        c.drawString(120, y, f"{key}: {value}")
         y -= 20
-
+    
     c.save()
     
-    #Save a invisible file
-    if os.name == "nt":  
+    # Hide the file
+    if os.name == "nt":
         os.system(f"attrib +h {filename}.pdf")
-
-    elif os.name == "posix":  
-        hidden_filename = f".{filename}.pdf"  
+    elif os.name == "posix":
+        hidden_filename = f".{filename}.pdf"
         os.rename(filename, hidden_filename)
         filename = hidden_filename
+    
+    stdscr.addstr(2, 0, f"File saved as hidden: {filename}")
+    stdscr.addstr(4, 0, "Press any key to continue...")
+    stdscr.refresh()
+    stdscr.getch()
 
-    print(f"File saved as hidden: {filename}")
+if __name__ == "__main__":
+    curses.wrapper(save_to_pdf)

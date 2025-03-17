@@ -1,11 +1,10 @@
 import curses
 from Documentation import Documentation
-#import SavePdf  # Se necessário
+import SavePdf  # Se necessário
 import Logics.DictLogic
 import Logics.ListLogic
-#import Logics.ExitLogic
-import sys
-import os
+import Logics.ExitLogic
+
 
 def init(FistChosen, stdscr):
     """Chama a função correspondente à opção escolhida"""
@@ -33,24 +32,25 @@ def main(stdscr):
     stdscr.clear()  # Limpa a tela
     stdscr.refresh()
 
-        # Exibindo a introdução do programa
-    center_text(stdscr, "=" * 83, 0)
-    center_text(stdscr, "We application is a list and a dictionary to which you will add values in the same", 1)
-    center_text(stdscr, "=" * 83, 2)
-    stdscr.refresh()
+    while True:    # Exibindo a introdução do programa
+        center_text(stdscr, "=" * 82, 0)
+        center_text(stdscr, "We application is a list and a dictionary to which you will add values in the same", 1)
+        center_text(stdscr, "=" * 82, 2)
+        stdscr.refresh()
 
         # Exibindo as opções de escolha, centralizado
-    option_text = "[L]ist [D]ictionary [H]elp [I]mage [E]xit: "
-    center_text(stdscr, option_text, 4)
-    stdscr.refresh()
-    FistChosen = stdscr.getch()
+        option_text = "[L]ist [D]ictionary [H]elp [I]mage [E]xit: "
+        center_text(stdscr, option_text, 4)
+        stdscr.refresh()
+        FistChosen = stdscr.getch()
+        FistChosen_char = chr(FistChosen).upper()
 
-    init(chr(FistChosen).upper(), stdscr)
+        init(FistChosen_char, stdscr)
         # Chama a função init com a escolha do usuário
     
 
         # Limpa a tela antes de reexibir as opções
-    stdscr.clear()
+        stdscr.clear()
 
 if __name__ == "__main__":
     curses.wrapper(main)

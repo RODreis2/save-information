@@ -1,63 +1,79 @@
 import os
 import sys
+import curses
+
+# Certifique-se de que a pasta 'logics' esteja no mesmo diretório ou que você adicione ao sys.path se estiver em outro local
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))  # Adiciona o diretório atual ao sys.path
+
 list_one = []
-def Listfunction():
-    ListChosen = input("Chose option \n"
-                    "[I]nsert [L]ist [D]elete [C]lean [E]xit: ")
-    
-    os.system('clear' if os.name == 'posix' else 'cls')    
-    if ListChosen.upper() == 'I':
-        return ListfunctionInsert()
-    
-    elif ListChosen.upper() == "D":
-        return ListFunctionDelete()
-    
-    elif ListChosen.upper() == "L":
-        return Listfunctionlist()
 
-    elif ListChosen.upper() == "C":
-        return ListfunctionClear()
-    
-    elif ListChosen.upper() == "E":
-        return ListfunctionExit()
+def Listfunction(stdscr):
+    stdscr.clear()
+    stdscr.addstr("Choose option:\n")
+    stdscr.addstr("[I]nsert [S]how [D]elete [C]lean [E]xit: ")
+    stdscr.refresh()
+    Lchoice = stdscr.getch()
+    Lchoice_char = chr(Lchoice).upper()  # Converte o código da tecla para um caractere
 
+    if Lchoice_char == 'I':
+        ListfunctionInsert(stdscr)
+    elif Lchoice_char == "D":
+        ListFunctionDelete(stdscr)
+    elif Lchoice_char == "L":
+        Listfunctionlist(stdscr)
+    elif Lchoice_char == "C":
+        ListfunctionClear(stdscr)
+    elif Lchoice_char == "E":
+        ListfunctionExit(stdscr)
     else:
-        print("Write again please.")
+        stdscr.addstr("Invalid option. Try again.\n")
+        stdscr.refresh()
+        stdscr.getch()
 
-def ListfunctionInsert():
-            shopping = input("write value: ")
-            os.system('clear' if os.name == 'posix' else 'cls')
-            list_one.append(shopping)
+def ListfunctionInsert(stdscr):
+    from Logics.Display import get_input  # Certifique-se de que o método get_input está implementado corretamente
+    from Logics.ExitLogic import fullExit  # Certifique-se de que fullExit está implementado corretamente
 
-def ListFunctionDelete():
-        #List: delete logic
-            os.system('clear' if os.name == 'posix' else 'cls')
-            for index, item in enumerate(list_one):
-                print(f"{index}: {item},")
+    shopping = get_input(stdscr, "Write value: ")
+    list_one.append(shopping)
 
-            ChoseToDelete = int(input("Write number of information that you want to delete: ").strip())
-            try:
-                list_one.pop(ChoseToDelete)
-            except:
-                os.system('clear' if os.name == 'posix' else 'cls')
-                print(f"The number do not be in the list, write again please.")
-                quit()        
-                
-def Listfunctionlist():
-        #List: list logic
-        os.system('clear' if os.name == 'posix' else 'cls')
-        for index, item in enumerate(list_one):
-            print(f"{index}: {item}")
+    # Exibe uma confirmação
+    stdscr.clear()
+    stdscr.addstr(f"Added '{shopping}' to the list.\n")
+    stdscr.refresh()
+    stdscr.getch()
 
+def ListFunctionDelete(stdscr):
+    stdscr.clear()
+    for i, item in enumerate(list_one):
+        stdscr.addstr(i, 0, f"{i}: {item}")
+    stdscr.refresh()
 
-    #List: Exit logic
-def ListfunctionExit():
-            from Logics.ExitLogic import fullExit
-            fullExit()
+    DelName = get_input(stdscr, "Write the name you want to delete: ")
 
-def ListfunctionClear():
-            os.system('clear' if os.name == 'posix' else 'cls')
-            list_one.clear()
-            print("List has been cleaned.")
-        
-            
+    if DelName in list_one:
+        list_one.remove(DelName)
+        stdscr.addstr(len(list_one) + 2, 0, f"'{DelName}' deleted successfully!")
+    else:
+        stdscr.addstr(len(list_one) + 2, 0, "The name is not in the list. Press any key to continue...")
+
+    stdscr.refresh()
+    stdscr.getch()
+
+def Listfunctionlist(stdscr):
+    stdscr.clear()
+    for i, item in enumerate(list_one):
+        stdscr.addstr(i, 0, f"{i}: {item}")
+    stdscr.refresh()
+    stdscr.getch()
+
+def ListfunctionClear(stdscr):
+    stdscr.clear()
+    list_one.clear()
+    stdscr.refresh()
+    stdscr.addstr("List has been cleaned.")
+    stdscr.getch()
+
+def ListfunctionExit(stdscr):
+    from logics.ExitLogic import fullExit  # Certifique-se de que o método fullExit está implementado corretamente
+    fullExit()
