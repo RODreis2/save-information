@@ -69,11 +69,15 @@ def Listfunctionlist(stdscr):
 
 def ListfunctionClear(stdscr):
     stdscr.clear()
-    list_one.clear()
+    stdscr.addstr("Are you sure? [Y]es [N]o: ")
     stdscr.refresh()
-    stdscr.addstr("List has been cleaned.")
-    stdscr.getch()
-
+    choice = stdscr.getch()
+    if chr(choice).upper() == "Y":
+        list_one.clear()
+        stdscr.addstr("List has been cleaned. Press any key to continue...")
+        stdscr.refresh()
+        stdscr.getch()
+    
 def ListfunctionExit(stdscr):
-    from logics.ExitLogic import fullExit  # Certifique-se de que o método fullExit está implementado corretamente
-    fullExit()
+    from Logics.ExitLogic import fullExit  # Certifique-se de que o método fullExit está implementado corretamente
+    fullExit(stdscr)

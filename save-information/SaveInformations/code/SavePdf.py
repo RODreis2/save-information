@@ -38,4 +38,6 @@ def save_to_pdf(stdscr, filename, ListToPdf, DictToPdf):
     stdscr.getch()
 
 if __name__ == "__main__":
-    curses.wrapper(save_to_pdf)
+    lista12 = ["meme", 222]
+    bib = {"issoai": 2222}
+    curses.wrapper(save_to_pdf, "teste.pdf", lista12, bib)

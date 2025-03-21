@@ -15,6 +15,9 @@ def exitClear1(stdscr):
 
 
 def fullExit(stdscr):
+    from Logics.ListLogic import list_one
+    from Logics.DictLogic import dict_one
+
     """Pergunta ao usuário se deseja salvar as informações e encerra o programa."""
     stdscr.clear()
     stdscr.addstr("Do you wanna save your information [S/N]? ")
@@ -27,7 +30,7 @@ def fullExit(stdscr):
         if SaveOrNot == "S":    
             namefile = get_input(stdscr, "Write the name: ").strip()
             try:
-                save_to_pdf(namefile, list_one, dict_one)
+                save_to_pdf(stdscr, namefile, list_one, dict_one)
                 exitClear1(stdscr)  # Chama a função para finalizar o programa
             except Exception as e:  # Alterado para capturar qualquer erro
                 stdscr.addstr(f"Error: {e}\n")

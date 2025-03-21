@@ -1,3 +1,5 @@
+import Ncurses
+
 def get_input(stdscr, prompt, row=0, col=0):
     """Captura a entrada do usuário e exibe em tempo real com suporte ao backspace."""
     stdscr.addstr(row, col, prompt)

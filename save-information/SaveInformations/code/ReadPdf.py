@@ -1,12 +1,14 @@
 import pdfplumber
 import os
+import curses
 
-def load_from_pdf(filename):
+def load_from_pdf(stdscr, filename):
     lista = []
     dicionario = {}
 
     if not os.path.exists(filename):
-        print("Arquivo não encontrado! Criando um novo.")
+        stdscr.addstr("File not found! Creating a new.\n")
+        stdscr.refresh()
         return lista, dicionario  # Retorna listas vazias se o arquivo não existir
 
     with pdfplumber.open(filename) as pdf:
@@ -30,8 +32,19 @@ def load_from_pdf(filename):
                     dicionario[chave] = valor if not valor.isdigit() else int(valor)  # Converte para inteiro se for número
                 i += 1
         i += 1
-
-    print(lista, dicionario)
-    return lista, dicionario
     
+    stdscr.addstr(f"Lista: {lista}\n")
+    stdscr.addstr(f"Dicionario: {dicionario}\n")
+    stdscr.refresh()
+    return lista, dicionario
+
+def main(stdscr):
+    curses.curs_set(0)  # Oculta o cursor
+    stdscr.clear()
+    filename = ".teste.pdf.pdf"  # Substitua pelo nome do arquivo desejado
+    lista, dicionario = load_from_pdf(stdscr, filename)
+    stdscr.getch()  # Aguarda entrada do usuário antes de sair
+
+curses.wrapper(main)
+
 
