@@ -24,11 +24,13 @@ def DictFunction(stdscr):
 def DictFunctionInsert(stdscr):
     from Display import get_input
     """Função para inserir dados no dicionário usando a função get_input."""
+    stdscr.clear()  # Limpa a tela
     name_dict2 = get_input(stdscr, "Write name: ")  # Chama a função para capturar o nome
     if name_dict2 is None:
         return  # Se o usuário pressionar ESC, sai da função
 
-    description = get_input(stdscr, "Write description: ")  # Chama a função para capturar a descrição
+    description = get_input(stdscr, "Write description: ") 
+    stdscr.clear()  
     if description is None:
         return  # Se o usuário pressionar ESC, sai da função
     

@@ -27,16 +27,22 @@ def fullExit(stdscr):
         SaveOrNot = chr(stdscr.getch()).strip().upper()  # Captura a tecla pressionada
         stdscr.clear()
 
-        if SaveOrNot == "S":    
-            namefile = get_input(stdscr, "Write the name: ").strip()
-            try:
-                save_to_pdf(stdscr, namefile, list_one, dict_one)
-                exitClear1(stdscr)  # Chama a função para finalizar o programa
-            except Exception as e:  # Alterado para capturar qualquer erro
-                stdscr.addstr(f"Error: {e}\n")
+        if SaveOrNot == "S":
+            if not list_one and not dict_one:
+                stdscr.addstr("Invalid input cause list and dict is empty\n")
                 stdscr.refresh()
                 stdscr.getch()
-                continue 
+
+            else:
+                namefile = get_input(0,1,stdscr, "Write the name: ").strip()
+                try:
+                    save_to_pdf(stdscr, namefile, list_one, dict_one)
+                    exitClear1(stdscr)  # Chama a função para finalizar o programa
+                except Exception as e:  # Alterado para capturar qualquer erro
+                    stdscr.addstr(f"Error: {e}\n")
+                    stdscr.refresh()
+                    stdscr.getch()
+                    continue 
 
         elif SaveOrNot == "N":
             exitClear1(stdscr)

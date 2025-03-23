@@ -1,6 +1,6 @@
 import curses
-from Documentation import Documentation
-import SavePdf  # Se necessário
+import SavePdf
+from Logics.Documentation import documentation
 import Logics.DictLogic
 import Logics.ListLogic
 import Logics.ExitLogic
@@ -13,9 +13,9 @@ def init(FistChosen, stdscr):
     elif FistChosen.upper() == "D":
         Logics.DictLogic.DictFunction(stdscr)
     elif FistChosen.upper() == "H":
-        Logics.DictLogic.Documentation(stdscr)
+        documentation(stdscr)
     elif FistChosen.upper() == "E":
-        Logics.fullExit()
+        Logics.ExitLogic.fullExit(stdscr)
     elif FistChosen.upper() == "I":
         # Implementar lógica de "I" se necessário
         pass
