@@ -4,7 +4,8 @@ from Logics.Documentation import documentation
 import Logics.DictLogic
 import Logics.ListLogic
 import Logics.ExitLogic
-
+from EncryptImVid import encrypt_file
+from DecryptImVid import decrypt_file
 
 def init(FistChosen, stdscr):
     """Chama a função correspondente à opção escolhida"""
@@ -14,10 +15,23 @@ def init(FistChosen, stdscr):
         Logics.DictLogic.DictFunction(stdscr)
     elif FistChosen.upper() == "H":
         documentation(stdscr)
-    elif FistChosen.upper() == "E":
+    elif FistChosen.upper() == "Q":
         Logics.ExitLogic.fullExit(stdscr)
-    elif FistChosen.upper() == "I":
-        # Implementar lógica de "I" se necessário
+    elif FistChosen.upper() == "E":
+        stdscr.clear()
+        options = "[E]ncrypt [D]ecrypt [Q]uit"
+        center_text(stdscr, options, 2)
+        stdscr.refresh()
+        Enchoose = stdscr.getch()
+        Enchoose_char = chr(Enchoose).upper()
+        while True:
+            if Enchoose_char == "E":
+                encrypt_file(stdscr) 
+            elif Enchoose_char == "D":
+                decrypt_file(stdscr)
+            elif Enchoose_char == "Q":
+                break
+
         pass
 
 def center_text(stdscr, text, row):
@@ -39,7 +53,7 @@ def main(stdscr):
         stdscr.refresh()
 
         # Exibindo as opções de escolha, centralizado
-        option_text = "[L]ist [D]ictionary [H]elp [I]mage [E]xit: "
+        option_text = "[L]ist [D]ictionary [H]elp [E]ncrypt/Decrypt [Q]uit: "
         center_text(stdscr, option_text, 4)
         stdscr.refresh()
         FistChosen = stdscr.getch()
